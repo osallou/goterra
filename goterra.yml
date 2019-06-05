@@ -1,0 +1,21 @@
+redis:
+        host: "got-redis"
+        port: 6379
+        prefix: "goterra"
+
+mongo:
+        url: "mongodb://got-mongo:27017"
+        db: "goterradeploy"
+
+
+# url to traefik
+url: "http://localhost:8081"
+secret: "myjwtsecret"
+
+web:
+        listen: "0.0.0.0"
+        port: 8000
+
+deploy:
+        # path where terraform scripts are written
+        path: "/var/lib/got"

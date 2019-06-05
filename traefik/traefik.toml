@@ -1,0 +1,45 @@
+###############################################################
+# API and dashboard configuration
+################################################################
+[api]
+
+###############################################################
+# Consul Catalog Provider
+################################################################
+
+# Enable Consul Catalog Provider.
+[consulCatalog]
+
+# Consul server endpoint.
+#
+# Required
+# Default: "127.0.0.1:8500"
+#
+endpoint = "got-consul:8500"
+
+# Expose Consul catalog services by default in Traefik.
+#
+# Optional
+# Default: true
+#
+exposedByDefault = false
+
+# Allow Consul server to serve the catalog reads regardless of whether it is the leader.
+#
+# Optional
+# Default: false
+#
+stale = false
+
+# Default base domain used for the frontend rules.
+#
+# Optional
+#
+#domain = "consul.localhost"
+
+# Prefix for Consul catalog tags.
+#
+# Optional
+# Default: "traefik"
+#
+prefix = "traefik"
