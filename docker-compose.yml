@@ -30,7 +30,7 @@ services:
                 - ${GOT_DIR}/traefik/traefik.toml:/etc/traefik/traefik.toml
 
     got-auth:
-        image: osallou/got-auth
+        image: osallou/goterra-auth
         depends_on:
             - got-consul
         environment:
@@ -39,7 +39,7 @@ services:
             - ${GOT_DIR}/goterra.yml:/root/goterra.yml
 
     got-store:
-        image: osallou/got-store
+        image: osallou/goterra-store
         environment:
             - GOT_PROXY=http://got-traefik
             - GOT_CONSUL=got-consul:8500
@@ -49,8 +49,8 @@ services:
             - ${GOT_DIR}/goterra.yml:/root/goterra.yml
     
     got-deploy:
-        image: osallou/got-deploy
-        environement:
+        image: osallou/goterra-deploy
+        environment:
             - GOT_PROXY=http://got-traefik
             - GOT_CONSUL=got-consul:8500
         volumes:

@@ -1,1 +1,7 @@
 .env
+mongo
+redis
+venv
+load.py
+__pycache__
+.vscode
