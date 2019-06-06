@@ -1,0 +1,18 @@
+@startuml
+actor User
+database MongoDB
+database Redis
+User -> Traefik: API
+Traefik -> Consul: discovery
+TerraAuth -> Consul: register
+TerraStore -> Consul: register
+TerraDeploy -> Consul: register
+TerraStore -> TerraAuth: proxyauth
+TerraDeploy -> TerraAuth: proxyauth
+TerraAuth -> MongoDB
+TerraDeploy -> MongoDB
+TerraStore -> Redis
+Traefik -> TerraAuth: proxy
+Traefik -> TerraStore: proxy
+Traefik -> TerraDeploy: proxy
+@enduml
