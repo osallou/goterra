@@ -80,3 +80,18 @@ services:
             - got-consul
             - got-rabbitmq
             - got-mongo
+
+    got-run-agent:
+        image: osallou/goterra-run-agent
+        environment:
+            - GOT_PROXY=http://got-traefik
+            - GOT_CONSUL=got-consul:8500
+            - GOT_AMQP=amqp://got:got@got-rabbit:5672/
+            - GOT_SECRET=${GOT_SECRET}
+        volumes:
+            - ${GOT_DIR}/got:/var/lib/got
+            - ${GOT_DIR}/goterra.yml:/root/goterra.yml
+        depends_on:
+            - got-consul
+            - got-rabbitmq
+            - got-mongo

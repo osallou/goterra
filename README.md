@@ -30,9 +30,15 @@ Apache 2.0
 
 * goterra-store
 * goterra-deploy
+* goterra-run-agent
 * goterra-auth
 
 ## Run
+
+Create a .env with variables:
+
+* GOT_SECRET: secret to use for token generation
+* GOT_DIR: directory where compose and configuration files are located
 
 Use docker-compose to set up whole goterra
 

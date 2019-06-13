@@ -5,12 +5,14 @@ redis:
 
 mongo:
         url: "mongodb://got-mongo:27017"
-        db: "goterradeploy"
+        db: "goterra"
 
 
 # url to traefik
 url: "http://localhost:8081"
-secret: "myjwtsecret"
+
+fernet:
+        - "0123456789"
 
 web:
         listen: "0.0.0.0"
