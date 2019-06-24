@@ -49,6 +49,8 @@ services:
             - GOT_CONSUL=got-consul:8500
             - GOT_SECRET=${GOT_SECRET}
             - GOT_URL=${GOT_URL}
+            - GOOGLE_OAUTH2_CLIENT_ID=""
+            - GOOGLE_OAUTH2_CLIENT_SECRET=""
         volumes:
             - ${GOT_DIR}/goterra.yml:/root/goterra.yml
         depends_on:
@@ -99,3 +101,15 @@ services:
             - got-consul
             - got-rabbitmq
             - got-mongo
+
+    got-ui:
+        image: osallou/goterra-ui
+        environment:
+            - GOT_PROXY=http://got-traefik
+            - GOT_CONSUL=got-consul:8500
+            - GOT_SECRET=${GOT_SECRET}
+            - GOT_URL=${GOT_URL}
+        volumes:
+            - ${GOT_DIR}/goterra.yml:/root/goterra.yml
+        depends_on:
+            - got-consul
