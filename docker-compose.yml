@@ -122,6 +122,7 @@ services:
             - GOT_CONSUL=got-consul:8500
             - GOT_SECRET=${GOT_SECRET}
             - GOT_URL=${GOT_URL}
+            - GOT_ACL_USER_CREATENS=1
         volumes:
             - ${GOT_DIR}/goterra.yml:/root/goterra.yml
         depends_on:
