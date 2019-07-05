@@ -11,11 +11,11 @@ It allows to create define some recipes (shell scripts) to execute in VM and to 
 Help with goterra store component, VMs can exchange data during deployment to be used by any VM plan or after deployment to get some result ouputs (a cluster token for example)
 At run time, user specifies the value of the expected variables (specified in recipes or templates)
 
-* Authentication
+### Authentication
 
 Users are created/authenticated against the *auth* service. Once binded via an API Key, user receives a *fernet* token that can be used against all goterra services. This token has a lifetime (24h by default).
 
-* Create a namespace (shared by multiple users)
+### Create a namespace (shared by multiple users)
 
 User creating the namespace is the namespace owner and can add other user ids as an owner or a member. See APIs for allowed access between owners and members.
 
@@ -35,6 +35,32 @@ Endpoints, recipes and templates can define a set of variables that will be defi
 Then user can run an application, specifying an endpoint and a set of variable. Variables will be written to a *variable.tf* file which can be used in Terraform templates (for user connection for example, choice of flavor, etc.). API also offers some *sensitive inputs* which are managed differently (not stored like other variables but injected via environement variables only). *sensitive inputs* are not accessible by recipes, only by terraform templates.
 
 Recipes, Endpoints, Templates and applications can be set as *public* to make them available to other namespaces.
+
+### Execution
+
+When an application is ran, user provides expected inputs, then run is sent to a queue. Once queue executes the run, VMs are deployed. Deployment is in 2 steps:
+
+* Terraform plan: the VMs (with storage, etc.) are deployed, once done, run is in deploy_succes (or failure) status
+* Once a VM is started, recipes are applied, their status can be obtained from goterra store component, or, in UI, seen in Recipes status. Each VM will have a specific recipe status (over or failed).
+
+All run inputs are available as variables for Terraform plan AND recipes as environment variables.
+
+A deployment is considered successfull only when both plan and recipes are in success. In case of recipe failure, some error logs are available. However VMs will not be stopped. User **should** ask for resources destruction in case of failure.
+
+User can get all outputs (if any) defined by terraform plan directly from goterra *deploy* component.
+Other data set in *store* by VMs should be queried directly in *store* component.
+
+When run is stopped, all resources, including *store* data are deleted.
+
+Only run *owner* can access store data.
+
+### Store
+
+*store* component can be used in terraform to exchange data between VMs.
+Help with *goterra-cli* command, automatically installed in VMs, one can push or fetch data on the *store*.
+In case of fetch, if requested key is not present, it will wait until a defined timeout to get it. After the timeout, it fails.
+
+An example scenario is a master VM that generates a token, push it to the *store*. During this time a slave VM fetches this token, waiting for it to be available. Once available it takes its value for its own setup and connect to the master with the token.
 
 ## License
 
@@ -106,4 +132,4 @@ Default route **/** should be redirected to **/app** to access Web UI.
 
 ## Roadmap
 
-See GitHub (project)[https://github.com/osallou/goterra/projects] 
+See GitHub [project](https://github.com/osallou/goterra/projects)
