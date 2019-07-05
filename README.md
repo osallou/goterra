@@ -9,6 +9,7 @@ In development
 Goterra is a Terraform based deployment tool, for multi cloud deployment of virtual machines.
 It allows to create define some recipes (shell scripts) to execute in VM and to deploy an infra via Terraform templates.
 Help with goterra store component, VMs can exchange data during deployment to be used by any VM plan or after deployment to get some result ouputs (a cluster token for example)
+At run time, user specifies the value of the expected variables (specified in recipes or templates)
 
 * Authentication
 
@@ -24,11 +25,16 @@ In the namespace
 * Create recipes, a recipe is a shell script executed in VM at startup. Recipe can extend an other recipe and is versioned.
 * Create applications, an application is a set of recipes to apply, and a template for each kind of endpoint (a terraform template for openstack and an other for Amazon for example)
 
-Endpoints, recipes and applications can define a set of variables that will be defined at runtime. Those variables are used in application templates (see Terraform variables) and also injected in recipes as environment variables.
+User information needed at runtime
+
+* Endpoint secrets are created by end user to fill his credentials for related endpoint.
+* User SSH key can be set in user profile or sent at run time in Run input *ssh_pub_key* variable.
+
+Endpoints, recipes and templates can define a set of variables that will be defined at runtime. Those variables are used in application templates (see Terraform variables) and also injected in recipes as environment variables.
 
 Then user can run an application, specifying an endpoint and a set of variable. Variables will be written to a *variable.tf* file which can be used in Terraform templates (for user connection for example, choice of flavor, etc.). API also offers some *sensitive inputs* which are managed differently (not stored like other variables but injected via environement variables only). *sensitive inputs* are not accessible by recipes, only by terraform templates.
 
-Recipes and applications can be set as *public* to make them available to other namespaces.
+Recipes, Endpoints, Templates and applications can be set as *public* to make them available to other namespaces.
 
 ## License
 
@@ -80,6 +86,7 @@ Create a .env with variables:
 
 * GOT_SECRET: secret to use for token generation
 * GOT_DIR: directory where compose and configuration files are located
+* GOT_URL: url to the service
 
 Use docker-compose to set up whole goterra
 
