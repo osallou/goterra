@@ -23,6 +23,15 @@ services:
         volumes:
             - ${GOT_DIR}/redis:/data
 
+    got-influx:
+        image: influxdb
+        volumes:
+           - ${GOT_DIR}/influx:/var/lib/influxdb
+        environment:
+          - INFLUXDB_DB=goterra
+          - INFLUXDB_USER=goterra
+          - INFLUXDB_USER_PASSWORD=goterra
+
     got-consul:
         image: consul
         hostname: consulnode1
@@ -127,3 +136,17 @@ services:
             - ${GOT_DIR}/goterra.yml:/root/goterra.yml
         depends_on:
             - got-consul
+
+
+    got-acct:
+        image: osallou/goterra-acct
+        environment:
+            - GOT_PROXY=http://got-traefik
+            - GOT_CONSUL=got-consul:8500
+            - GOT_SECRET=${GOT_SECRET}
+            - GOT_URL=${GOT_URL}
+        volumes:
+            - ${GOT_DIR}/goterra.yml:/root/goterra.yml
+        depends_on:
+            - got-consul
+            - got-influx
