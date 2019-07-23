@@ -60,6 +60,8 @@ services:
             - GOT_URL=${GOT_URL}
             - GOOGLE_OAUTH2_CLIENT_ID=""
             - GOOGLE_OAUTH2_CLIENT_SECRET=""
+            - AAI_OAUTH2_CLIENT_ID=""
+            - AAI_OAUTH2_CLIENT_SECRET=""
         volumes:
             - ${GOT_DIR}/goterra.yml:/root/goterra.yml
         depends_on:
@@ -132,6 +134,8 @@ services:
             - GOT_SECRET=${GOT_SECRET}
             - GOT_URL=${GOT_URL}
             - GOT_ACL_USER_CREATENS=1
+            - GOOGLE_OAUTH2=1
+            - AAI_OAUTH2=1
         volumes:
             - ${GOT_DIR}/goterra.yml:/root/goterra.yml
         depends_on:
