@@ -106,9 +106,17 @@ services:
             - GOT_AMQP=amqp://got:got@got-rabbitmq:5672/
             - GOT_SECRET=${GOT_SECRET}
             - GOT_URL=${GOT_URL}
+            # Set to 1 to execute cmd in isolated container
+            - GOT_DOCKER_USE=0
+            - GOT_DOCKER_IMAGE=osallou/goterra-run-executor
+            - GOT_DOCKER_DIR=${GOT_DIR}/got
+
         volumes:
             - ${GOT_DIR}/got:/var/lib/got
             - ${GOT_DIR}/goterra.yml:/root/goterra.yml
+            # Enable this is using GOT_DOCKER_USE
+            # - /var/run/docker.sock:/var/run/docker.sock
+ 
         depends_on:
             - got-consul
             - got-rabbitmq
