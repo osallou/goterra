@@ -62,6 +62,8 @@ services:
             - GOOGLE_OAUTH2_CLIENT_SECRET=""
             - AAI_OAUTH2_CLIENT_ID=""
             - AAI_OAUTH2_CLIENT_SECRET=""
+            - GOT_AMQP=amqp://got:got@got-rabbitmq:5672/
+
         volumes:
             - ${GOT_DIR}/goterra.yml:/root/goterra.yml
         depends_on:
