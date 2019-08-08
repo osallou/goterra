@@ -68,11 +68,13 @@ Apache 2.0
 
 ## Components
 
-* [goterra-store](https://github.com/osallou/goterra-store)
-* [goterra-deploy](https://github.com/osallou/goterra-deploy)
-* [goterra-run-agent](https://github.com/osallou/goterra-run-agent)
-* [goterra-auth](https://github.com/osallou/goterra-auth)
-* [goterra-ui](https://github.com/osallou/goterra-ui)
+* [goterra-store](https://github.com/osallou/goterra-store): store to handle VMs communication and store deployment status/progress
+* [goterra-deploy](https://github.com/osallou/goterra-deploy): component to handle namespaces,recipes,etc...
+* [goterra-run-agent](https://github.com/osallou/goterra-run-agent): terraform execution agent
+* [goterra-auth](https://github.com/osallou/goterra-auth): authentication and user management
+* [goterra-ui](https://github.com/osallou/goterra-ui): web interface
+* [goterra-acct](https://github.com/osallou/goterra-acct): accounting
+* [goterra-cli](https://github.com/osallou/goterra-cli): command line client
 
 The store component can be deployed as stand-alone app (with auth service for authentication, or alone for anonymous access) to be used as an exchange service between VM/services/... See [goterra-store](https://github.com/osallou/goterra-store) for more info.
 
